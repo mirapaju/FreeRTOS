@@ -30,4 +30,6 @@ private:
     static void runner(void *params);
 };
 
+//adding something for test purposes
+
 #endif //RP2040_FREERTOS_CPP_TEMPLATE_LOCK_H
