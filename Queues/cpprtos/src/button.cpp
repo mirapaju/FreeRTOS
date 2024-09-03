@@ -7,7 +7,7 @@
 #define DELAY 300
 
 Button::Button(int btn, QueueHandle_t queue)
-    : pin(btn), name("btn" + std::to_string(btn)), btnQ(queue), state(false), prev_state(true), last_pressed(0) {
+    : pin(btn), name("btn" + std::to_string(btn)), btnQ(queue), last_pressed(0) {
     gpio_init(btn);
     gpio_set_dir(btn, GPIO_IN);
     gpio_set_pulls(btn, true, false);
@@ -29,13 +29,12 @@ void Button::button_task() {
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
        while (true) {
-       state = gpio_get(pin);  // Read the current button state
+      // state = gpio_get(pin);  // Read the current button state
        current = to_ms_since_boot(get_absolute_time());
-       if (state != prev_state) { //eli nyt on painettu (state ==0), edellinen state 1
+       if (!(gpio_get(pin))) { //eli nyt on painettu (state ==0), edellinen state 1
            // Check if the debounce delay has passed
            if ((current - last_pressed) > DELAY) { //aikaa kulunu tarpeeks
                last_pressed = current; //resettaa timer
-               std::cout << "pin: " << pin << " has value: " << state << std::endl;
                //send tthings to queue
                std::cout << "Pressed" << std::endl;
                gpio_put(LED_PIN, true);

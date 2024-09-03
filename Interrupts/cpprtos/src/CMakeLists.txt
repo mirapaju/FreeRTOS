@@ -1,9 +1,5 @@
 add_executable(${ProjectName}
     main.cpp
-        button.cpp
-        button.h
-        lock.cpp
-        lock.h
 )
 
 target_include_directories(${ProjectName} PRIVATE

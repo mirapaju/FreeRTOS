@@ -15,7 +15,7 @@
 #include <vector>
 #include <unordered_map>
 
-#define LED_PIN 20
+#define LED_PIN 21
 
 class Lock{
 public:

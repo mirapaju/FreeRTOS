@@ -27,8 +27,6 @@ private:
     int pin;
     const std::string name;
     QueueHandle_t btnQ;
-    bool state;
-    bool prev_state;
     uint64_t current;
     uint64_t last_pressed;
     TaskHandle_t handle;
