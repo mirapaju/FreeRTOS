@@ -1,0 +1,1 @@
+CMakeLists.txt not found in C:\Users\mirap\CLionProjects\FreeRTOS_course\Rotary_encoder&ISR\cpprtos Select CMakeLists.txt
