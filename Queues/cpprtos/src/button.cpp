@@ -16,9 +16,6 @@ Button::Button(int btn, QueueHandle_t queue)
     xTaskCreate(Button::runner, name.c_str(), 512, (void *) this, tskIDLE_PRIORITY +1, &handle);
 }
 
-int Button::get_pin() const {
-    return pin;
-}
 
 void Button::runner(void *params){
     auto *inst = static_cast<Button *>(params);

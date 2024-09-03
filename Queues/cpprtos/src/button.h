@@ -19,8 +19,6 @@
 class Button{
 public:
         Button(int btn, QueueHandle_t queue);
-        bool get();
-        int get_pin() const;
         void button_task();
 private:
     static void runner(void *params);
