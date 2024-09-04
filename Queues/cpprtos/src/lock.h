@@ -16,18 +16,21 @@
 #include <unordered_map>
 
 #define LED_PIN 21
+#include "LED.h"
 
 class Lock{
 public:
-    Lock(QueueHandle_t queue, const std::unordered_map<int,int> &mapping, const std::vector<int> &seq);
+    Lock(QueueHandle_t queue, LED *led, const std::unordered_map<int,int> &mapping, const std::vector<int> &seq);
     void process_task();
 private:
+    static void runner(void *params);
     QueueHandle_t lockQ;
-    TaskHandle_t handle;
+    LED *led;
     std::vector<int> sequence;
     std::unordered_map<int,int> pin_to_seq;
     int index;
-    static void runner(void *params);
+
+    TaskHandle_t handle;
 };
 
 #endif //RP2040_FREERTOS_CPP_TEMPLATE_LOCK_H

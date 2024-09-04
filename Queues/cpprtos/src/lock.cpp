@@ -4,16 +4,17 @@
 
 #include "lock.h"
 
-Lock::Lock(QueueHandle_t queue, const std::unordered_map<int,int> &mapping, const std::vector<int> &seq)
-    : lockQ(queue), pin_to_seq(mapping), sequence(seq), index(0){
+Lock::Lock(QueueHandle_t queue, LED *led, const std::unordered_map<int,int> &mapping, const std::vector<int> &seq)
+    : lockQ(queue), led(led), pin_to_seq(mapping), sequence(seq), index(0){
     std::cout << "Creating processing task" << std::endl;
-    xTaskCreate(Lock::runner, "ProcessingTask", 512, this, tskIDLE_PRIORITY +2, &handle);
+    xTaskCreate(Lock::runner, "ProcessingTask", 512, this, tskIDLE_PRIORITY +1, &handle);
 }
 
 void Lock::runner(void *params){
     Lock *inst= static_cast<Lock*>(params);
     inst->process_task();
 }
+
 
 void Lock::process_task() {
     gpio_init(LED_PIN);
@@ -32,9 +33,8 @@ void Lock::process_task() {
                     std::cout << "Found one!" << std::endl;
                     if (index == sequence.size()){
                         std::cout << "Correct sequence inserted!" << std::endl;
-                        gpio_put(LED_PIN, true);
-                        vTaskDelay(pdMS_TO_TICKS(5000)); //keep led on for 5sec
-                        gpio_put(LED_PIN, false);
+                        led->blink(5000);
+                        std::cout << "5sec passed" << std::endl;
                         index=0;
                     }
                 }

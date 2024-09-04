@@ -3,6 +3,7 @@
 //
 
 #include "Rot.h"
+#include "events.h"
 
 RotaryEncoder *RotaryEncoder::inst = nullptr;
 
@@ -10,6 +11,7 @@ RotaryEncoder::RotaryEncoder(int SW, int ROTA, int ROTB, QueueHandle_t queue1, Q
 : sw_pin(SW), rotA_pin(ROTA), rotB_pin(ROTB), raw_events(queue1), filtered(queue2){
     init();
     inst = this;
+    std::cout << "Creating filter task" << std::endl;
     xTaskCreate(RotaryEncoder::runner, "fix this", 512, (void *) this, tskIDLE_PRIORITY +1, &handle);
 }
 
@@ -39,7 +41,7 @@ void RotaryEncoder::runner(void *params){
 
 
 void RotaryEncoder::irq_handler(uint gpio, uint32_t events) {
-    std::cout << "in here" << std::endl;
+    //std::cout << "in here" << std::endl;
     if (inst){
         BaseType_t higherPriorityTaskWoken = pdFALSE;
         xQueueSendFromISR(inst->raw_events, &gpio, &higherPriorityTaskWoken);
@@ -51,19 +53,41 @@ void RotaryEncoder::irq_handler(uint gpio, uint32_t events) {
 
 //RECEIVE FROM ISR
 void RotaryEncoder::filter_task() {
+    int gpio;
     while (true) {
-        int gpio;
-        uint32_t current = to_ms_since_boot(get_absolute_time());
         if (xQueueReceive(raw_events, &gpio, portMAX_DELAY == pdTRUE)) {
+            RotaryEvents event;
+            uint32_t current = to_ms_since_boot(get_absolute_time());
             std::cout << "Received" << std::endl;
             //odotellaanko indefinitely?
             if ((current - last_event) > DELAY) { //aikaa kulunu tarpeeks
                 last_event = current; //resettaa timer
-                std::cout << "Filtered" << std::endl;
-                xQueueSend(filtered, &gpio, portMAX_DELAY);
+                //save_to_struct(gpio);
+                event.pin = gpio;
+                if (gpio == sw_pin) {
+                    event.event_type = BUTTON_PRESS;
+                } else if (gpio == rotA_pin) {
+                    event.event_type = CLOCKWISE;
+                } else if (gpio == rotB_pin) {
+                    event.event_type = COUNTERCLOCKWISE;
+                }
+                std::cout << "Filtered, sending: " << gpio << std::endl;
+
+                xQueueSend(filtered, &event, portMAX_DELAY);
             }
         }
         vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
+
+//MITÄ JOS TÄSSÄ TULEE INTERRUPT??
+/*
+void RotaryEncoder::save_to_struct(int gpio){
+    events.pin = gpio;
+    if(gpio==sw_pin){
+        events.pressed = true;
+    }
+    else events.pressed = false;
+    events.direction = (gpio == rotA_pin) ? 1 : (gpio == rotB_pin) ? -1 : 0;
+}*/
 

@@ -31,7 +31,7 @@ void read_task(void *param){
             //if charachter is EOL, signal the indicator task
             if(ch == '\n') xSemaphoreGive(smphr);
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(10)); //kauan saa olla pois?
     }
 }
 

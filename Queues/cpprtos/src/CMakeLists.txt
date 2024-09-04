@@ -4,6 +4,8 @@ add_executable(${ProjectName}
         button.h
         lock.cpp
         lock.h
+        LED.cpp
+        LED.h
 )
 
 target_include_directories(${ProjectName} PRIVATE

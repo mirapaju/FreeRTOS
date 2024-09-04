@@ -5,6 +5,7 @@
 #include "button.h"
 #include "lock.h"
 #include <iostream>
+#include "LED.h"
 
 #include "hardware/timer.h"
 extern "C" {
@@ -20,8 +21,6 @@ uint32_t read_runtime_ctr(void) {
 
 #define BUTTON_QUEUE_LENGTH 10
 #define BUTTON_QUEUE_ITEM_SIZE sizeof(int)
-
-//PITÄÄKÖ SEN TOIMIA NIIN ETTÄ KUN SE LED ON PÄÄLLÄ NIIN SIT SE EI TEE MITÄÄN MUUTA KU ODOTA ET SE ON OLLU 5SEC PÄÄLLÄ?
 
 
 int main(){
@@ -40,10 +39,11 @@ int main(){
             {SW_2, 2}
     };
 
-    new Button(SW_0, buttonQueue);  // Create a Button object for pin 9
-    new Button(SW_1, buttonQueue); // Create another Button object for pin 10
-    new Button(SW_2, buttonQueue); // And another for pin 11
-    Lock lock(buttonQueue, pin_mapping, sequence);
+    new Button(SW_0, buttonQueue);
+    new Button(SW_1, buttonQueue);
+    new Button(SW_2, buttonQueue);
+    LED led(LED_PIN);
+    Lock lock(buttonQueue, &led, pin_mapping, sequence);
 
     vTaskStartScheduler();
 

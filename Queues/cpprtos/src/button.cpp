@@ -22,38 +22,24 @@ void Button::runner(void *params){
     inst ->button_task();
 }
 
+
+
+//ticks to wait?
 void Button::button_task() {
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
        while (true) {
-      // state = gpio_get(pin);  // Read the current button state
        current = to_ms_since_boot(get_absolute_time());
-       if (!(gpio_get(pin))) { //eli nyt on painettu (state ==0), edellinen state 1
-           // Check if the debounce delay has passed
-           if ((current - last_pressed) > DELAY) { //aikaa kulunu tarpeeks
-               last_pressed = current; //resettaa timer
-               //send tthings to queue
+       if (!(gpio_get(pin))) {
+           //check if the debounce delay has passed
+           if ((current - last_pressed) > DELAY) {
+               last_pressed = current;
                std::cout << "Pressed" << std::endl;
-               gpio_put(LED_PIN, true);
                xQueueSend(btnQ, &pin, portMAX_DELAY);
            }
        }
-       gpio_put(LED_PIN, false);
        vTaskDelay(pdMS_TO_TICKS(50));
    }
 }
-/*
-    void button_task() {
-        while(true) {
-            if(gpio_get(pin) == 0) {
-                vTaskDelay(pdMS_TO_TICKS(300));
-                if(gpio_get(btn) == 0){
-                //send stuff to queue
-                }
-            }
-            vTaskDelay(pdMS_TO_TICKS(50));
-        }
-}*/
+
 
 
 /* while(true) {

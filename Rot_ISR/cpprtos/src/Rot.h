@@ -10,6 +10,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "events.h"
 #include <string>
 #include <iostream>
 
@@ -22,6 +23,7 @@ public:
     void init() const;
     static void irq_handler(uint gpio, uint32_t events);
     void filter_task();
+    void save_to_struct(int gpio);
 private:
     static void runner(void *params);
     static RotaryEncoder *inst;
@@ -32,6 +34,7 @@ private:
     QueueHandle_t filtered;
     TaskHandle_t handle;
     uint32_t last_event=0;
+    RotaryEvents events;
 };
 
 #endif //EXERCISE2_ROT_H

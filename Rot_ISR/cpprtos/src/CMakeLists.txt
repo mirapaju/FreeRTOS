@@ -4,6 +4,10 @@ add_executable(${ProjectName}
         Rot.h
         LEDControl.cpp
         LEDControl.h
+        events.h
+        events.h
+        LED.cpp
+        LED.h
 )
 
 target_include_directories(${ProjectName} PRIVATE

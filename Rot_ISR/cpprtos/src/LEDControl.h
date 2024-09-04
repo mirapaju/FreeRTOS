@@ -11,17 +11,19 @@
 #include "task.h"
 #include "queue.h"
 #include <iostream>
+#include "events.h"
+#include "LED.h"
 
 class Led_control{
 public:
-    Led_control(int gpio, QueueHandle_t q);
+    Led_control(QueueHandle_t q, LED *led);
     void led_task();
 private:
     static void runner(void *params);
-    int pin;
     TaskHandle_t handle;
     QueueHandle_t events;
     const std::string name;
+    LED *led;
 };
 
 #endif //EXERCISE2_LEDCONTROL_H

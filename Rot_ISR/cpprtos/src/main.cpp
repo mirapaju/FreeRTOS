@@ -6,7 +6,10 @@
 #include <iostream>
 #include "Rot.h"
 #include "LEDControl.h"
+#include "events.h"
+#include "LED.h"
 #include "hardware/timer.h"
+
 extern "C" {
 uint32_t read_runtime_ctr(void) {
     return timer_hw->timerawl;
@@ -18,7 +21,7 @@ uint32_t read_runtime_ctr(void) {
 #define ROT_B 11
 #define ROT_SW 12
 #define QUEUE_LENGHT 50
-#define ITEM_SIZE sizeof(int)
+#define ITEM_SIZE sizeof(RotaryEvents)
 
 //Switching LED on/off and changing the blinking frequency
 //Rot_SW is on/off button, when pushed, led state is toggled, presses <250ms ignored
@@ -39,11 +42,12 @@ int main(){
     stdio_init_all();
    // cout << "Hoping everything works.." << endl;
 
-    QueueHandle_t e = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
-    QueueHandle_t ev = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
+    QueueHandle_t raw = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
+    QueueHandle_t filtered = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
 
-    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, e, ev);
-    Led_control led(LED_PIN, e);
+    LED led(LED_PIN);
+    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, raw, filtered);
+    Led_control ctrl(filtered, &led);
     //create tasks, no parameters so passing a nullptr
    // xTaskCreate(read_task, "ReadTask", 512, nullptr, tskIDLE_PRIORITY + 1, nullptr);
    // xTaskCreate(indicator_task, "IndicatorTask", 512, nullptr, tskIDLE_PRIORITY +1, nullptr);

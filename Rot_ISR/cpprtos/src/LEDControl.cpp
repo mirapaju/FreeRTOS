@@ -4,11 +4,10 @@
 
 #include "LEDControl.h"
 
-Led_control::Led_control(int gpio, QueueHandle_t q)
-            : pin(gpio), events(q), name(std::to_string(gpio)){
-    gpio_init(gpio);
-    gpio_set_dir(gpio, true);
-    xTaskCreate(Led_control::runner, name.c_str(), 512, (void*) this, tskIDLE_PRIORITY +1, &handle);
+Led_control::Led_control(QueueHandle_t q, LED *led)
+            : events(q), led(led){
+    std::cout << "Creating led control task" << std::endl;
+    xTaskCreate(Led_control::runner, "LedControl", 512, (void*) this, tskIDLE_PRIORITY +1, &handle);
 }
 
 
@@ -19,8 +18,31 @@ void Led_control::runner(void *params){
 
 
 void Led_control::led_task() {
-    int gpio;
-    if (xQueueReceive(events, &gpio, portMAX_DELAY == pdTRUE)){
-        std::cout << "Received event: " << gpio << " from somewhere over the rainbow" << std::endl;
+    RotaryEvents event;  //ONKO TÄÄ PAREMPI TEHÄ JOKA KERTA UUS? EIKS NIIT TUU KAUHEEST
+    while (true) {
+        if (xQueueReceive(events, &event, portMAX_DELAY == pdTRUE)) {
+            std::cout << "Received event from somewhere over the rainbow" << std::endl;
+
+            switch (event.event_type) {
+                case BUTTON_PRESS:
+                    std::cout << "Button pressed" << std::endl;
+                    led->toggle();
+                    break;
+                case CLOCKWISE:
+                    std::cout << "Turned clockwise" << std::endl;
+                    break;
+                case COUNTERCLOCKWISE:
+                    std::cout << "Turned counterclockwise" << std::endl;
+                    break;
+            }
+         /*   if (event.pressed){
+                //toggle led
+                std::cout << "Received info from press" << std::endl;
+            }
+            else if(event.direction !=0){
+                //frequency change
+                std::cout << "Adjust frequency" << std::endl;
+            }*/
+        }
     }
 }
