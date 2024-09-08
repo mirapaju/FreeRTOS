@@ -27,4 +27,5 @@ void LED::blink(int delay) const {
     gpio_put(pin, true);
     vTaskDelay(pdMS_TO_TICKS(delay));
     gpio_put(pin, false);
+    vTaskDelay(pdMS_TO_TICKS(delay));
 }

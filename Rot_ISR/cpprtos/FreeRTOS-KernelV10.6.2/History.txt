@@ -348,7 +348,7 @@ Changes between FreeRTOS V10.4.3 and FreeRTOS V10.4.4 released May 28 2021
 	  constant that enables the stack allocated to tasks to come from a heap other
 	  than the heap used by other memory allocations.  This enables stacks to be
 	  placed within special regions, such as fast tightly coupled memory.
-	+ If there is an attempt to add the same queue or semaphore handle to the
+	+ If there is an attempt to add the same queue or semaphore filter_handle to the
 	  queue registry more than once then prior versions would create two separate
 	  entries.  Now if this is done the first entry is overwritten rather than
 	  duplicated.
@@ -840,13 +840,13 @@ released February 19 2016:
 	  daemon task (which used to be called the timer service task) starts
 	  running.  This is useful if the application includes initialisation code
 	  that would benefit from executing after the scheduler has been started.
-	+ Added the xTaskGetTaskHandle() API function, which obtains a task handle
+	+ Added the xTaskGetTaskHandle() API function, which obtains a task filter_handle
 	  from the task's name.  xTaskGetTaskHandle() uses multiple string compare
 	  operations, so it is recommended that it is called only once per task.
-	  The handle returned by xTaskGetTaskHandle() can then be stored locally for
+	  The filter_handle returned by xTaskGetTaskHandle() can then be stored locally for
 	  later re-use.
 	+ Added the pcQueueGetQueueName() API function, which obtains the name of
-	  a queue from the queue's handle.
+	  a queue from the queue's filter_handle.
 	+ Tickless idling (for low power applications) can now also be used when
 	  configUSE_PREEMPTION is 0.
 	+ If one task deletes another task, then the stack and TCB of the deleted
@@ -1878,7 +1878,7 @@ Changes between V6.0.5 and V6.1.0 released October 6 2010
 	+ Added a STM32F103 demo application that uses the Rowley tools.
 	+ Under specific conditions xFreeBytesRemaining within heap_2.c could end up
 	  with an incorrect	value.  This has been fixed.
-	+ xTaskCreateGeneric() has a parameter that can be used to pass the handle
+	+ xTaskCreateGeneric() has a parameter that can be used to pass the filter_handle
 	  of the task just created out to the calling task.  The assignment to this
 	  parameter has been moved to ensure it is assigned prior to the newly
 	  created having any possibility of executing.  This takes into account the
@@ -2435,7 +2435,7 @@ Changes between V4.0.1 and V4.0.2 released May 28, 2006
 	  Jefferson "imajeff" Smith.
 	+ The function vTaskList() now suspends the scheduler rather than disabling
 	  interrupts during the creation of the task list.
-	+ Allow a task to delete itself by passing in its own handle.  Previously
+	+ Allow a task to delete itself by passing in its own filter_handle.  Previously
 	  this could only be done by passing in NULL.
 	+ Corrected the value passed to the WDG_PeriodValueConfig() library
 	  function in the STR71x demo.

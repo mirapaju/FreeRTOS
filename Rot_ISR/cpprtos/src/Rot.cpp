@@ -12,7 +12,7 @@ RotaryEncoder::RotaryEncoder(int SW, int ROTA, int ROTB, QueueHandle_t queue1, Q
     init();
     inst = this;
     std::cout << "Creating filter task" << std::endl;
-    xTaskCreate(RotaryEncoder::runner, "fix this", 512, (void *) this, tskIDLE_PRIORITY +1, &handle);
+    xTaskCreate(RotaryEncoder::runner, "ButtonFilter", 512, (void *) this, tskIDLE_PRIORITY +1, &handle);
 }
 
 void RotaryEncoder::init() const{
@@ -50,44 +50,28 @@ void RotaryEncoder::irq_handler(uint gpio, uint32_t events) {
 }
 
 
-
 //RECEIVE FROM ISR
 void RotaryEncoder::filter_task() {
     int gpio;
     while (true) {
         if (xQueueReceive(raw_events, &gpio, portMAX_DELAY == pdTRUE)) {
-            RotaryEvents event;
             uint32_t current = to_ms_since_boot(get_absolute_time());
+            RotaryEvents event;
             std::cout << "Received" << std::endl;
-            //odotellaanko indefinitely?
+
             if ((current - last_event) > DELAY) { //aikaa kulunu tarpeeks
+                event.event_type = (gpio == sw_pin) ? BUTTON_PRESS :
+                                   (gpio == rotA_pin) ? CLOCKWISE :
+                                   (gpio == rotB_pin) ? COUNTERCLOCKWISE : INVALID;
                 last_event = current; //resettaa timer
-                //save_to_struct(gpio);
-                event.pin = gpio;
-                if (gpio == sw_pin) {
-                    event.event_type = BUTTON_PRESS;
-                } else if (gpio == rotA_pin) {
-                    event.event_type = CLOCKWISE;
-                } else if (gpio == rotB_pin) {
-                    event.event_type = COUNTERCLOCKWISE;
-                }
+
                 std::cout << "Filtered, sending: " << gpio << std::endl;
 
-                xQueueSend(filtered, &event, portMAX_DELAY);
+                if(event.event_type != INVALID) xQueueSend(filtered, &event, portMAX_DELAY);
             }
         }
         vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
 
-//MITÄ JOS TÄSSÄ TULEE INTERRUPT??
-/*
-void RotaryEncoder::save_to_struct(int gpio){
-    events.pin = gpio;
-    if(gpio==sw_pin){
-        events.pressed = true;
-    }
-    else events.pressed = false;
-    events.direction = (gpio == rotA_pin) ? 1 : (gpio == rotB_pin) ? -1 : 0;
-}*/
 

@@ -8,7 +8,8 @@
 typedef enum {
     BUTTON_PRESS,
     CLOCKWISE,
-    COUNTERCLOCKWISE
+    COUNTERCLOCKWISE,
+    INVALID
 } Event_type;
 
 struct RotaryEvents{

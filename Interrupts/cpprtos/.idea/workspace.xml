@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -26,7 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa07617a-f72c-4d35-9bbd-f0cad535ba23" name="Changes" comment="Semaphores done">
-      <change beforePath="$PROJECT_DIR$/../../Rotary_encoder&amp;ISR/cpprtos/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../Rotary_encoder&amp;ISR/cpprtos/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +49,9 @@
     <option name="majorVersion" value="2023" />
     <option name="minorVersion" value="2.2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2lYlaLddWNukG1kdtrvzB2lBKd7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -66,7 +66,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/mirap/CLionProjects/FreeRTOS_course/Semaphore/cpprtos",
+    "last_opened_file_path": "C:/Users/mirap/CLionProjects/FreeRTOS_course/Rot_ISR/cpprtos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -80,11 +80,6 @@
     <option name="rtosEnabled" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PicoProbe" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2" TARGET_NAME="Exercise2" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="Exercise2" RUN_TARGET_NAME="Exercise2">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="board/pico-debug.cfg" reset-type="INIT" download-type="ALWAYS">
         <debugger kind="GDB" isBundled="true" />
@@ -103,6 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1725364952791</updated>
       <workItem from="1725364953979" duration="6542000" />
+      <workItem from="1725782043658" duration="99000" />
     </task>
     <servers />
   </component>

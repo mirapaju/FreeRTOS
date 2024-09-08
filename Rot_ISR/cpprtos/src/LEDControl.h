@@ -13,17 +13,29 @@
 #include <iostream>
 #include "events.h"
 #include "LED.h"
+#include "semphr.h"
+
+
+#define MAX_FREQUENCY 200
+#define MIN_FREQUENCY 2
+
 
 class Led_control{
 public:
     Led_control(QueueHandle_t q, LED *led);
-    void led_task();
+    void filter_task();
+    void blink_task();
 private:
-    static void runner(void *params);
-    TaskHandle_t handle;
+    static void filter_runner(void *params);
+    static void blink_runner(void *params);
+    TaskHandle_t filter_handle;
+    TaskHandle_t blink_handle;
     QueueHandle_t events;
+    SemaphoreHandle_t semaphore;
     const std::string name;
     LED *led;
+    bool state;
+    int frequency;
 };
 
 #endif //EXERCISE2_LEDCONTROL_H
