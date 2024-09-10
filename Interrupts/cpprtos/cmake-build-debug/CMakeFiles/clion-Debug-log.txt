@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\mirap\CLionProjects\FreeRTOS_course\Interrupts\cpprtos Select CMakeLists.txt

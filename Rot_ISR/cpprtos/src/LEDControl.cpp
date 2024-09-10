@@ -4,12 +4,18 @@
 
 #include "LEDControl.h"
 
+SemaphoreHandle_t xMutex;
+
+
+
 Led_control::Led_control(QueueHandle_t q, LED *led)
             : events(q), led(led), state(false), frequency(MIN_FREQUENCY){
     std::cout << "Creating tasks" << std::endl;
     xTaskCreate(Led_control::filter_runner, "LedControl", 512, (void*) this, tskIDLE_PRIORITY +1, &filter_handle);
     xTaskCreate(Led_control::blink_runner, "BlinkTask", 512, (void*) this, tskIDLE_PRIORITY + 1, &blink_handle);
     semaphore = xSemaphoreCreateBinary();
+    // Initialize mutex
+    xMutex = xSemaphoreCreateMutex();
 }
 
 
@@ -26,46 +32,46 @@ void Led_control::blink_runner(void *params){
 
 //min 2Hz max 200Hz
 void Led_control::filter_task() {
-    RotaryEvents event;  //ONKO TÄÄ PAREMPI TEHÄ JOKA KERTA UUS? EIKS NIIT TUU KAUHEEST
+    RotaryEvents event;
     while (true) {
         if (xQueueReceive(events, &event, portMAX_DELAY == pdTRUE)) {
-            std::cout << "Received event from somewhere over the rainbow" << std::endl;
-            std::cout << "Current frequency" << frequency << std::endl;
-
-            switch (event.event_type) {
-                case BUTTON_PRESS:
-                    std::cout << "Button pressed" << std::endl;
-                    state = !state;
-                    led->toggle();
-                    break;
-                case CLOCKWISE:
-                    std::cout << "Turned clockwise" << std::endl;
-                    if (frequency>=MIN_FREQUENCY && frequency <MAX_FREQUENCY) {
-                        std::cout << "Inside range" << std::endl;
-                        ++frequency;
-                        xSemaphoreGive(semaphore);
-                    }
-                    break;
-                case COUNTERCLOCKWISE:
-                    std::cout << "Turned counterclockwise" << std::endl;
-                    if (frequency>MIN_FREQUENCY && frequency <=MAX_FREQUENCY) {
-                        std::cout << "Inside range" << std::endl;
-                        --frequency;
-                        xSemaphoreGive(semaphore);
-                    }
-                    break;
+          //  xSemaphoreTake(xMutex, portMAX_DELAY);
+          //  std::cout << "Current period: " << (1000 / frequency) / 2 << std::endl;
+                switch (event.event_type) {
+                    case BUTTON_PRESS:
+                        state = !state;
+                        led->toggle();
+                        break;
+                    case CLOCKWISE:
+                        std::cout << "Turned clockwise" << std::endl;
+                        if (frequency >= MIN_FREQUENCY && frequency < MAX_FREQUENCY &&state) {
+                            ++frequency;
+                            std::cout << "New frequency: " << (1000 / frequency) / 2 << std::endl;
+                        }
+                        break;
+                    case COUNTERCLOCKWISE:
+                        std::cout << "Turned counterclockwise" << std::endl;
+                        if (frequency > MIN_FREQUENCY && frequency <= MAX_FREQUENCY &&state) {
+                            --frequency;
+                            std::cout << "New frequency: " << (1000 / frequency) / 2 << std::endl;
+                        }
+                        break;
             }
+          //  xSemaphoreGive(xMutex);  // Release the mutex
         }
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 
 void Led_control::blink_task() {
     while (true) {
         if (state) {
+            xSemaphoreTake(xMutex, portMAX_DELAY);
             int period_ms = (1000 / frequency) / 2;
-            printf("delay : %d \n", period_ms);
+            //printf("delay : %d \n", period_ms);
             led->blink(period_ms);
-            vTaskDelay(10 / portTICK_PERIOD_MS);  // Adjust as needed
+            xSemaphoreGive(xMutex);  // Release the mutex
         }
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

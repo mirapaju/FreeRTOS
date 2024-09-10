@@ -9,7 +9,6 @@ typedef enum {
     BUTTON_PRESS,
     CLOCKWISE,
     COUNTERCLOCKWISE,
-    INVALID
 } Event_type;
 
 struct RotaryEvents{

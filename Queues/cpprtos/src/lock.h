@@ -14,9 +14,11 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include "LED.h"
 
 #define LED_PIN 21
-#include "LED.h"
+#define DELAY 5000
+
 
 class Lock{
 public:

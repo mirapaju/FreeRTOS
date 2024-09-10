@@ -42,15 +42,11 @@ int main(){
     stdio_init_all();
    // cout << "Hoping everything works.." << endl;
 
-    QueueHandle_t raw = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
-    QueueHandle_t filtered = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
+    QueueHandle_t rotaryQ = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
 
     LED led(LED_PIN);
-    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, raw, filtered);
-    Led_control ctrl(filtered, &led);
-    //create tasks, no parameters so passing a nullptr
-   // xTaskCreate(read_task, "ReadTask", 512, nullptr, tskIDLE_PRIORITY + 1, nullptr);
-   // xTaskCreate(indicator_task, "IndicatorTask", 512, nullptr, tskIDLE_PRIORITY +1, nullptr);
+    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, rotaryQ);
+    Led_control ctrl(rotaryQ, &led);
 
     vTaskStartScheduler();
 
