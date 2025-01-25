@@ -4,8 +4,10 @@
 #include "pico/stdlib.h"
 #include "PicoOsUart.h"
 #include <iostream>
-#include "LED.h"
+#include "LedControl.h"
 #include "UartHandler.h"
+#include <cstdio>
+#include "CommandProcess.h"
 
 #include "hardware/timer.h"
 extern "C" {
@@ -14,7 +16,7 @@ uint32_t read_runtime_ctr(void) {
 }
 }
 
-#define LED_PIN 20
+#define LED_PIN 21
 
 #define UART 0
 #define UART_TX 0
@@ -22,29 +24,22 @@ uint32_t read_runtime_ctr(void) {
 #define BAUD_RATE 115200
 
 #define BUFFER_SIZE 64
+#define QUEUE_LENGTH 10
+#define ITEM_SIZE sizeof(char[64]) // Assuming the maximum command length is 64 bytes
 
-
-//two timers, one for toggling led, one for clearing the input
-// if you are inactive for too long everything is discarded what you have entered
-//you can change the toggling interval with commands
-//getting the number of seconds since last toggle w commands
-
-//learn from timer api
-//you can get interval, you can get how much time since last trigger/how much time left until next
-//you need to handle line feeds etc, uart driver gives just bytes, doesnt know \n, backspace, etc
-//they will appear as garbage ->handle
-
-
-//one task for reading char, one task for processing command, one tasl for
 
 
 int main(){
     stdio_init_all();
 
-    std::cout << "Starting..." << std::endl;
-    PicoOsUart u(UART, UART_TX, UART_RX, BAUD_RATE);
+    PicoOsUart u(UART, UART_TX, UART_RX, BAUD_RATE); //PITÄÄKÖ TÄÄ TEHÄ SIINÄ TASKIN ALUSSA?
+    QueueHandle_t q = xQueueCreate(QUEUE_LENGTH, ITEM_SIZE);
+
     uint8_t buf[BUFFER_SIZE];
-    UartHandler uart(&u, buf, BUFFER_SIZE);
+    printf("Works?");
+    UartHandler uart(&u, buf, BUFFER_SIZE, q);
+    LedControl lc(LED_PIN);
+    CommandProcess cmd(q, &lc);
 
     vTaskStartScheduler();
 

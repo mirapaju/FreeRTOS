@@ -20,20 +20,22 @@
 #define MIN_FREQUENCY 2
 
 
+
 class Led_control{
 public:
-    Led_control(QueueHandle_t q, LED *led);
-    void filter_task();
+    Led_control(QueueHandle_t q, int gpio);
+    void events_task();
     void blink_task();
+    void print_task();
 private:
     static void filter_runner(void *params);
     static void blink_runner(void *params);
+    static void print_runner(void *params);
     TaskHandle_t filter_handle;
     TaskHandle_t blink_handle;
     QueueHandle_t events;
-    SemaphoreHandle_t semaphore;
-    const std::string name;
-    LED *led;
+    SemaphoreHandle_t mutex;
+    int pin;
     bool state;
     int frequency;
 };

@@ -9,11 +9,8 @@
 #include "pico/time.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "queue.h"
-#include <string>
 #include <iostream>
-#include <vector>
-#include <unordered_map>
+
 
 class LED {
 public:
@@ -22,7 +19,7 @@ public:
     void off() const;
     void blink(int delay) const;
     void toggle();
-
+    bool get_state();
 private:
     int pin;
     bool state;

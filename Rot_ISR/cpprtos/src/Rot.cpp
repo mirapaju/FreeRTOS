@@ -6,13 +6,15 @@
 #include "events.h"
 
 
+//static queue to pass rotary encoder events in
 static QueueHandle_t encoderQ = NULL;
 
+
 RotaryEncoder::RotaryEncoder(int SW, int ROTA, int ROTB, QueueHandle_t q)
-: sw_pin(SW), rotA_pin(ROTA), rotB_pin(ROTB), filtered(q), last_event(0){
+: sw_pin(SW), rotA_pin(ROTA), rotB_pin(ROTB), filtered_events(q), previous_push(0){
     init();
-    std::cout << "Creating filter task" << std::endl;
-    xTaskCreate(RotaryEncoder::runner, "Debounce_task", 512, (void *) this, tskIDLE_PRIORITY +1, &handle);
+    //priority pitä olla idle +3/4 ettei normitaskit pääse tän ohi, gpio pitää päästä lukee mahdollisimman nopeesti
+    xTaskCreate(RotaryEncoder::runner, "debounce_task", 512, (void *) this, tskIDLE_PRIORITY +3, &handle);
 }
 
 void RotaryEncoder::init() const{
@@ -27,6 +29,7 @@ void RotaryEncoder::init() const{
     gpio_set_dir(rotB_pin, GPIO_IN);
 
     encoderQ = xQueueCreate(50, sizeof(uint32_t));
+    vQueueAddToRegistry(encoderQ, "RotaryEncoderEvents");
     gpio_set_irq_enabled_with_callback(sw_pin, GPIO_IRQ_EDGE_RISE, true, irq_handler);
     gpio_set_irq_enabled_with_callback(rotA_pin, GPIO_IRQ_EDGE_RISE, true, irq_handler);
 }
@@ -37,7 +40,7 @@ void RotaryEncoder::runner(void *params){
     instance->debounce_task();
 }
 
-
+//interrupt handler, send pin to queue
 void RotaryEncoder::irq_handler(uint gpio, uint32_t events) {
     BaseType_t higherPriorityTaskWoken = pdFALSE;
     xQueueSendFromISR(encoderQ, &gpio, &higherPriorityTaskWoken);
@@ -46,6 +49,7 @@ void RotaryEncoder::irq_handler(uint gpio, uint32_t events) {
 
 
 //RECEIVE FROM ISR
+//MUISTA KATTOA TARKKAAN MINNE TULEE DELAY ->tänne ei ollenkaan koska pitää käsitellä heti
 void RotaryEncoder::debounce_task() {
     int gpio;
     while (true) {
@@ -57,20 +61,19 @@ void RotaryEncoder::debounce_task() {
             int rotB_state = gpio_get(rotB_pin);
 
             if (gpio==sw_pin){
-                if ((current - last_event > DELAY)){ //debounce push button
-                    last_event = current;
+                if ((current - previous_push > DELAY)){ //debounce push button
+                    previous_push = current;
                     event.event_type = BUTTON_PRESS;
-                    xQueueSend(filtered, &event, portMAX_DELAY);
+                    xQueueSend(filtered_events, &event, portMAX_DELAY);
                 }
             }
             else {
                 //determine the direction based on the state of rotA and rotB
                 if (rotA_state != rotB_state) event.event_type = CLOCKWISE;
                 else event.event_type = COUNTERCLOCKWISE;
-                xQueueSend(filtered, &event, portMAX_DELAY);
+                xQueueSend(filtered_events, &event, portMAX_DELAY);
             }
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 

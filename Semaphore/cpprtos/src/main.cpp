@@ -1,10 +1,8 @@
+#include <cstdio>
+#include "pico/stdlib.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "queue.h"
 #include "semphr.h"
-#include "pico/stdlib.h"
-#include <cstdio>
-#include <iostream>
 #include "hardware/timer.h"
 extern "C" {
 uint32_t read_runtime_ctr(void) {
@@ -12,59 +10,51 @@ uint32_t read_runtime_ctr(void) {
 }
 }
 
+#define QUEUE_LEN 64
 #define LED_PIN 21
+#define BLINK_DELAY 100
 
-//Two tasks, one for reading character from serial port,
-//other for indicating received characters on the serial port
-//BINARY SEMAPHORE notifies serial port activity to the indicator
-//blink after last char
+QueueHandle_t char_q;
+SemaphoreHandle_t xBinarySemaphore;
 
-using namespace std;
-
-SemaphoreHandle_t smphr;  //binary semaphore handle
-
-//task 1: read characters from serial port and signal when a line is complete (is the EOL ok?)
-void read_task(void *param){
-    while(true){
-        if(int ch = getchar_timeout_us(0); ch != PICO_ERROR_TIMEOUT){
+//read serial port, echo character, send to blink
+void read_task(void *params) {
+    while (true) {
+        int ch = getchar_timeout_us(0);
+        if (ch!=PICO_ERROR_TIMEOUT && ch!='\n') {
             putchar(ch);
-            //if charachter is EOL, signal the indicator task
-            if(ch == '\n') xSemaphoreGive(smphr);
+            xSemaphoreGive(xBinarySemaphore);
+            vTaskDelay(10);
         }
-        vTaskDelay(pdMS_TO_TICKS(10)); //kauan saa olla pois?
     }
 }
 
-
-//task2: blinks the LED after last character is received
-void indicator_task(void *param){
+//blink led: one char = one blink
+void led_task(void *params) {
     gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, true);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
 
-    while(true) {
-        //wait indefinitely for the semaphore to be given by the read task
-        if (xSemaphoreTake(smphr, portMAX_DELAY) == pdTRUE) {
-            cout << "Semaphore is miiiiiinneeeeeee" << endl;
+    while (true) {
+        if (xSemaphoreTake(xBinarySemaphore, portMAX_DELAY) == pdTRUE) {
             gpio_put(LED_PIN, true);
-            vTaskDelay(pdMS_TO_TICKS(100));
+            vTaskDelay(pdMS_TO_TICKS(BLINK_DELAY));
             gpio_put(LED_PIN, false);
-            vTaskDelay(pdMS_TO_TICKS(100));
+            vTaskDelay(pdMS_TO_TICKS(BLINK_DELAY));
         }
     }
 }
 
-int main(){
+int main() {
     stdio_init_all();
-    cout << "Hoping everything works.." << endl;
 
-    //create binary semaphore
-    smphr = xSemaphoreCreateBinary();
+    char_q = xQueueCreate(QUEUE_LEN, sizeof(char));
+    xBinarySemaphore = xSemaphoreCreateBinary();
 
-    //create tasks, no parameters so passing a nullptr
-    xTaskCreate(read_task, "ReadTask", 512, nullptr, tskIDLE_PRIORITY + 1, nullptr);
-    xTaskCreate(indicator_task, "IndicatorTask", 512, nullptr, tskIDLE_PRIORITY +1, nullptr);
+    xTaskCreate(read_task, "serial_read", 256, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(led_task, "blink_led", 256, NULL, tskIDLE_PRIORITY + 1, NULL);
 
     vTaskStartScheduler();
-
-    while(true){};
 }
+
+
+

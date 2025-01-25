@@ -1,9 +1,7 @@
 add_executable(${ProjectName}
     main.cpp
-        LedControl.cpp
-        PicoOsUart.cpp
-        UartHandler.cpp
-        CommandProcess.cpp
+        Button.cpp
+        Debug.cpp
 )
 
 target_include_directories(${ProjectName} PRIVATE

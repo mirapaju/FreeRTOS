@@ -1,44 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
-  <component name="CMakePresetLoader">{
-  &quot;useNewFormat&quot;: true
-}</component>
-  <component name="CMakeReloadState">
-    <option name="reloaded" value="true" />
-  </component>
-  <component name="CMakeRunConfigurationManager">
-    <generated>
-      <config projectName="Exercise2.2" targetName="bs2_default_bin" />
-      <config projectName="Exercise2.2" targetName="cyw43_driver_picow_cyw43_bus_pio_spi_pio_h" />
-      <config projectName="Exercise2.2" targetName="bs2_default_padded_checksummed_asm" />
-      <config projectName="Exercise2.2" targetName="tinyusb_pico_pio_usb_usb_rx_pio_h" />
-      <config projectName="Exercise2.2" targetName="tinyusb_pico_pio_usb_usb_tx_pio_h" />
-      <config projectName="Exercise2.2" targetName="Exercise2.2" />
-      <config projectName="Exercise2.2" targetName="bs2_default" />
-    </generated>
-  </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug">
-        <ADDITIONAL_GENERATION_ENVIRONMENT>
-          <envs>
-            <env name="PICO_SDK_PATH" value="C:\Users\mirap\PicoSDKv1.5.0\pico-sdk" />
-            <env name="PICO_TOOLCHAIN_PATH" value="C:\Users\mirap\PicoSDKv1.5.0\gcc-arm-none-eabi" />
-          </envs>
-        </ADDITIONAL_GENERATION_ENVIRONMENT>
-      </configuration>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="868b8a1b-338a-434d-83bc-9889ddaee4aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Timers/cpprtos/inc/LedControl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Timers/cpprtos/inc/UartHandler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/CommandProcess.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/CommandProcess.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/LedControl.cpp" afterDir="false" />
+    <list default="true" id="3eefad5f-b47d-4ab1-bccf-ccf21391d3d4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/cpprtos/inc/LedControl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpprtos/inc/UartHandler.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpprtos/src/CommandProcess.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpprtos/src/CommandProcess.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpprtos/src/LedControl.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Watchdog/cpprtos/inc/Watchdog.h" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Watchdog/cpprtos/src/Watchdog.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Event_groups/Debug_print/cpprtos/.gitignore" beforeDir="false" />
@@ -657,22 +630,24 @@
       <change beforePath="$PROJECT_DIR$/../Event_groups/Watchdog/cpprtos/src/LED.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Event_groups/Watchdog/cpprtos/src/button.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Event_groups/Watchdog/cpprtos/src/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LED.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LED.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LED.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LED.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LEDControl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LEDControl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LEDControl.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/LEDControl.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/Rot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/Rot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/Rot.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/Rot.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Rot_ISR/cpprtos/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Semaphore/cpprtos/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Semaphore/cpprtos/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Timers/cpprtos/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/inc/LED.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/LED.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/Timers.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/Timers.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/UartHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/UartHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/UartHandler.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Timers/cpprtos/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Timers/cpprtos/src/main.cpp" afterDir="false" />
-      <change beforePath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/btstack" beforeDir="false" afterPath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/btstack" afterDir="false" />
-      <change beforePath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/cyw43-driver" beforeDir="false" afterPath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/cyw43-driver" afterDir="false" />
-      <change beforePath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/lwip" beforeDir="false" afterPath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/lwip" afterDir="false" />
-      <change beforePath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/mbedtls" beforeDir="false" afterPath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/mbedtls" afterDir="false" />
-      <change beforePath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/tinyusb" beforeDir="false" afterPath="$USER_HOME$/PicoSDKv1.5.0/pico-sdk/lib/tinyusb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cpprtos/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/inc/LED.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cpprtos/src/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/LED.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/Timers.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/Timers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/UartHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cpprtos/src/UartHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/UartHandler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpprtos/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cpprtos/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -682,22 +657,16 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectApplicationVersion">
-    <option name="ide" value="CLion" />
-    <option name="majorVersion" value="2023" />
-    <option name="minorVersion" value="2.2" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2lT1D8ogriyPYj7nB0mM4YVOoMn" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2mW1GoEwWhHYOCuYq7zCCdzmPCQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -711,95 +680,23 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/mirap/CLionProjects/FreeRTOS_course/Rot_ISR",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.cidr.rtos.config",
+    "last_opened_file_path": "C:/Users/mirap/CLionProjects/FreeRTOS_course/Timers",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RtosSettings">
-    <option name="rtosEnabled" value="true" />
-  </component>
-  <component name="RunManager" selected="OpenOCD Download &amp; Run.PicoProbe">
-    <configuration name="Exercise2.2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="Exercise2.2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Exercise2.2" RUN_TARGET_NAME="Exercise2.2">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="bs2_default" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="bs2_default" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Exercise2.2" RUN_TARGET_NAME="bs2_default">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="bs2_default_bin" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="bs2_default_bin" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="bs2_default_padded_checksummed_asm" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="bs2_default_padded_checksummed_asm" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="cyw43_driver_picow_cyw43_bus_pio_spi_pio_h" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="cyw43_driver_picow_cyw43_bus_pio_spi_pio_h" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="tinyusb_pico_pio_usb_usb_rx_pio_h" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="tinyusb_pico_pio_usb_usb_rx_pio_h" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="tinyusb_pico_pio_usb_usb_tx_pio_h" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="tinyusb_pico_pio_usb_usb_tx_pio_h" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PicoProbe" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Exercise2.2" TARGET_NAME="Exercise2.2" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="Exercise2.2" RUN_TARGET_NAME="Exercise2.2">
-      <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="board/pico-debug.cfg" reset-type="INIT" download-type="ALWAYS">
-        <debugger kind="GDB" isBundled="true" />
-      </openocd>
-      <method v="2">
-        <option name="CLION.COMPOUND.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="CMake Application.Exercise2.2" />
-      <item itemvalue="CMake Application.bs2_default" />
-      <item itemvalue="CMake Application.bs2_default_bin" />
-      <item itemvalue="CMake Application.bs2_default_padded_checksummed_asm" />
-      <item itemvalue="CMake Application.cyw43_driver_picow_cyw43_bus_pio_spi_pio_h" />
-      <item itemvalue="CMake Application.tinyusb_pico_pio_usb_usb_rx_pio_h" />
-      <item itemvalue="CMake Application.tinyusb_pico_pio_usb_usb_tx_pio_h" />
-      <item itemvalue="OpenOCD Download &amp; Run.PicoProbe" />
-    </list>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="868b8a1b-338a-434d-83bc-9889ddaee4aa" name="Changes" comment="" />
-      <created>1725189129767</created>
+      <changelist id="3eefad5f-b47d-4ab1-bccf-ccf21391d3d4" name="Changes" comment="" />
+      <created>1727177424403</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1725189129767</updated>
-      <workItem from="1725189130775" duration="43000" />
-      <workItem from="1725949594499" duration="214000" />
-      <workItem from="1725949841931" duration="31265000" />
-      <workItem from="1727176971631" duration="7016000" />
+      <updated>1727177424403</updated>
+      <workItem from="1727177425569" duration="48000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VCPKGProject">
-    <isAutomaticEditVcpkgJson value="false" />
-    <isAutomaticCheckingOnLaunch value="false" />
-    <isAutomaticFoundErrors value="true" />
-    <isAutomaticFoundErrors value="true" />
   </component>
 </project>

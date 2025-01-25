@@ -1,5 +1,6 @@
 cmake-build-debug
 build
+FreeRTOS-KernelV10.6.2
 .DS_Store
 .idea
 

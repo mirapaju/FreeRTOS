@@ -15,6 +15,10 @@
 #include <iostream>
 
 #define DELAY 250
+#define LED_PIN 21
+#define ROT_A 10
+#define ROT_B 11
+#define ROT_SW 12
 
 
 class RotaryEncoder{
@@ -28,9 +32,9 @@ private:
     int sw_pin;
     int rotA_pin;
     int rotB_pin;
-    QueueHandle_t filtered;
+    QueueHandle_t filtered_events;
     TaskHandle_t handle;
-    uint32_t last_event;
+    uint32_t previous_push;
     RotaryEvents events;
 };
 

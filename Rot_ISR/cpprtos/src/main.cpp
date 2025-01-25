@@ -16,10 +16,7 @@ uint32_t read_runtime_ctr(void) {
 }
 }
 
-#define LED_PIN 21
-#define ROT_A 10
-#define ROT_B 11
-#define ROT_SW 12
+
 #define QUEUE_LENGHT 50
 #define ITEM_SIZE sizeof(RotaryEvents)
 
@@ -42,11 +39,12 @@ int main(){
     stdio_init_all();
    // cout << "Hoping everything works.." << endl;
 
-    QueueHandle_t rotaryQ = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
 
-    LED led(LED_PIN);
-    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, rotaryQ);
-    Led_control ctrl(rotaryQ, &led);
+    QueueHandle_t filtered_events = xQueueCreate(QUEUE_LENGHT, ITEM_SIZE);
+    vQueueAddToRegistry(filtered_events, "FilteredEvents");
+
+    RotaryEncoder rot(ROT_SW, ROT_A, ROT_B, filtered_events);
+    Led_control ctrl(filtered_events, 21);
 
     vTaskStartScheduler();
 

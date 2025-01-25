@@ -23,9 +23,14 @@ void LED::toggle(){
     gpio_put(pin, state);
 }
 
+
 void LED::blink(int delay) const {
     gpio_put(pin, true);
     vTaskDelay(pdMS_TO_TICKS(delay));
     gpio_put(pin, false);
     vTaskDelay(pdMS_TO_TICKS(delay));
+}
+
+bool LED::get_state(){
+    return state;
 }
